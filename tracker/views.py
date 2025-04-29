@@ -679,7 +679,7 @@ def dashboard_view(request):
 
 
 def stock_market_overview(request):
-    indices = ["SPY", "QQQ", "DIA", "IWM", "VTI", "ACWI", "VOO", "IVV", "AAPL", "GOOGL", "MSFT",]
+    indices = ["SPY", "QQQ", "DIA", "IWM", "AAPL",]
     overview_data = []
     api_key = settings.ALPHA_VANTAGE_API_KEY
     base_url = "https://www.alphavantage.co/query"
@@ -703,11 +703,12 @@ def stock_market_overview(request):
                     })
                 else:
                     print(f"Warning: No time series data available for {ticker}")
+                    print(f"Full response from {ticker}: {data}")
             else:
                 print(f"Error: Failed to fetch data for {ticker} (Status {response.status_code})")
 
         except requests.exceptions.RequestException as e:
             print(f"Network error for {ticker}: {e}")
-
+    print(overview_data)
     return render(request, 'tracker/stock_market.html', {'overview_data': overview_data})
 
