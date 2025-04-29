@@ -702,15 +702,12 @@ def stock_market_overview(request):
                         'close': daily_data['4. close'],
                     })
                 else:
-                    return
-                    #print(f"--- warning: No time series data available for {ticker}")
+                    print(f"Warning: No time series data available for {ticker}")
             else:
-                return
-                #print(f"--- error fetching data for {ticker}: Status {response.status_code}")
+                print(f"Error: Failed to fetch data for {ticker} (Status {response.status_code})")
 
         except requests.exceptions.RequestException as e:
-            return
-            # print(f"--- network error fetching data for {ticker}: {e}")
+            print(f"Network error for {ticker}: {e}")
 
     return render(request, 'tracker/stock_market.html', {'overview_data': overview_data})
 
